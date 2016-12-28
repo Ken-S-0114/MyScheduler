@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         Realm realm = Realm.getInstance(this);
         RealmResults<Schedule> schedules =
                 realm.where(Schedule.class).findAll();

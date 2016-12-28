@@ -10,9 +10,6 @@ import java.text.SimpleDateFormat;
 import io.realm.RealmBaseAdapter;
 import io.realm.RealmResults;
 
-/**
- * Created by satoken on 2016/12/24.
- */
 
 public class ScheduleAdapter extends RealmBaseAdapter<Schedule> {
 

@@ -46,7 +46,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/delete"
-        android:background="@color/colorAccent" />
+        android:background="@color/colorAccent"
+        android:onClick="onDeleteTapped" />
 
     <TextView
         android:text="日付："

@@ -1,12 +1,17 @@
 package com.example.satoken.myscheduler;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -23,6 +28,11 @@ public class ScheduleEditActivity extends AppCompatActivity {
     EditText mDetailEdit;
     Button mDelete;
 
+    //キーボードの出し入れを管理してるっぽい
+    private InputMethodManager inputMethodManager;
+    //この画面のレイアウト
+    private RelativeLayout mainLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +41,9 @@ public class ScheduleEditActivity extends AppCompatActivity {
         mTitleEdit = (EditText) findViewById(R.id.titleEdit);
         mDetailEdit = (EditText) findViewById(R.id.detailEdit);
         mDelete = (Button) findViewById(R.id.delete);
+
+        mainLayout = (RelativeLayout) findViewById(R.id.activity_schedule_edit);
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         long scheduleId = getIntent().getLongExtra("schedule_id", -1);
         // idを取得した場合は更新、取得できなかった時はscheduleIdが-1となりその場合は新規登録
@@ -53,6 +66,15 @@ public class ScheduleEditActivity extends AppCompatActivity {
             // 新規登録の時
             mDelete.setVisibility(View.INVISIBLE); // 削除ボタンを非表示
         }
+    }
+
+    //画面がタッチされたら呼ばれる（らしい）
+    @Override
+    public  boolean onTouchEvent(MotionEvent event) {
+        inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        mainLayout.requestFocus();
+
+        return false;
     }
 
     public void onSaveTapped(View view) {
